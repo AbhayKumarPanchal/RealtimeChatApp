@@ -1,4 +1,4 @@
-const User = require('../models/usermodel');
+const User = require('../models/usermodel.js');
 
 const register = async (req, res) => {
   try {
@@ -6,6 +6,7 @@ const register = async (req, res) => {
 
     const newUser = new User({ name, email, password });
     await newUser.save();
+    // res.send(newUser)
 
     res.status(201).json(newUser);
   } catch (err) {
