@@ -14,7 +14,7 @@ const Signup = () =>{
         e.preventDefault();
         
         axios.post("http://localhost:8080/register", user).then((res)=>{
-            // console.log(res.data.name);
+            console.log(res.data);
             setUser({name:"", email:"", password:""});
             alert(`Registeration successfull with name, ${res.data.name} `);
         }).catch((err)=>{
