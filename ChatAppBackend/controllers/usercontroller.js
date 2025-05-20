@@ -28,4 +28,20 @@ const login = async (req, res) => {
   }
 };
 
+const logout = async (req, res ) => {
+  try{
+    const  id  = req.params.id;
+
+    const fetchedUser = await User.findByIdAndDelete(id);
+
+    if(!fetchedUser){
+      res.send("user not found")
+    }
+    return res.send(fetchedUser);
+  }catch( err ){
+    console.error(err);
+    return res.status(500).send("Internal server error");
+  }
+}
+
 module.exports = { register, login };
