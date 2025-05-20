@@ -11,6 +11,7 @@ function App() {
 
   return (
     <BrowserRouter>
+    <Link to = '/logout' ><button>Logout</button></Link>
     <Link to = '/login' ><button>Login</button></Link>
     <Link to = 'signup' ><button>Signup</button></Link>
     <Routes>
@@ -18,6 +19,7 @@ function App() {
       <Route path='/chat' element={<Chat/>} />
       <Route path='/signup' element={<Signup/>}/>
       <Route path='/login' element={<Login/>}/>
+      <Route path='/logout' element = {<Logout/>/>
     </Routes>
     </BrowserRouter>
   );
