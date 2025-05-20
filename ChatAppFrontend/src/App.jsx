@@ -6,7 +6,6 @@ import './App.css'
 import Chat from './pages/Chat.jsx'
 import Signup from './pages/Signup.jsx';
 import Login from './pages/login.jsx';
-import Logout from './pages/logout.jsx';
 
 function App() {
 
