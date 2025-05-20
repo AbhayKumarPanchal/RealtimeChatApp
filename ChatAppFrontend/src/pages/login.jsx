@@ -20,10 +20,11 @@ const Login = () =>{
         axios.post("http://localhost:8080/login", user).then((res)=>{
             // console.log(res.data.name);
             setUser({name:"", password:""});
-            console.log(`this is returned Data:- ${res.data.name}` )
+            console.log(`this is returned Data:- ${res.data}` )
             navigate('/chat', {state: {userName: res.data.name, userId: res.data._id} } )
         }).catch((err)=>{
             console.log(`you got some error while Regstering! :- ${err}`);
+            alert('incorrect userName or password')
         })
     }
 
