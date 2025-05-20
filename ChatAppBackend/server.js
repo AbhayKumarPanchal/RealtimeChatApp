@@ -31,8 +31,11 @@ main()
   .then(() => console.log('Database is connected'))
   .catch((err) => console.error('Error connecting to the database:', err));
 
+
+
+const PORT = 8080;
 // API routes
-app.use('/api/users', userRoutes);
+app.use('/', userRoutes);
 
 //chats k liye
 io.on('connection', (socket) => {
