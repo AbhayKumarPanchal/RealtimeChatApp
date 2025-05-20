@@ -50,7 +50,7 @@ main().then(() => {
   app.post('/login',async (req,res)=>{
     const { name, password } = req.body;
     const fetchedUser = await User.findOne({name: name, password: password})
-    console.log(fetchedUser);
+    // console.log(fetchedUser);
     if(!fetchedUser){
       res.send('name or password is wrong!')
     }
