@@ -19,8 +19,6 @@ const io = new Server(server, {
   }
 });
 
-const PORT = 8080;
-
 const { DB_USER, DB_PASS} = process.env;
 
 // DB Connection
@@ -30,63 +28,26 @@ const main = () => {
 };
 
 main()
-  .then(() => {
-    console.log('Database is connected');
-  })
-  .catch((err) => {
-    console.log(`Error connecting to the database: ${err}`);
-  });
+  .then(() => console.log('Database is connected'))
+  .catch((err) => console.error('Error connecting to the database:', err));
 
-  
-  app.post('/register', async(req,res)=>{
+// API routes
+app.use('/api/users', userRoutes);
 
-    const { name, email,  password } = req.body;
-    
-    const newUser = new User({
-      name,
-      email,
-      password
-    });    
-    await newUser.save();    
-    res.send(newUser);
-  })
-  
-  app.post('/login',async (req,res)=>{
-    const { name, password } = req.body;
-    const fetchedUser = await User.findOne({name: name, password: password})
-    console.log(fetchedUser);
-    if(!fetchedUser){
-      res.send('name or password is wrong!')
-    }
-    res.send(fetchedUser)
-  })
-
-// chats k liye !
+//chats k liye
 io.on('connection', (socket) => {
   // console.log('User connected');
 
+  socket.on('chat message', (msg) => {
+    console.log(`Received: ${msg}`);
+    io.emit('chat message', msg);
+  });
 
   socket.on('disconnect', () => {
     // console.log('User disconnected');
   });
 });
 
-//chats k liye
-
-io.on('connection', (socket) =>{
-    // console.log(`connection stablished`)
-    socket.on('chat message', (msg)=>{
-        console.log(`got a msg:- ${msg}`)
-        io.emit('chat message', msg)
-    })
-
-
-    socket.on('disconnect', ()=>{
-        console.log('disconnected')
-    })
-})
-
-
-server.listen(PORT, () =>{
-    console.log(`Server alive at ${PORT}`);
-})
+server.listen(PORT, () => {
+  console.log(`Server running at http://localhost:${PORT}`);
+});
