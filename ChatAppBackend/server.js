@@ -1,7 +1,7 @@
+require('dotenv').config();
 const express = require('express');
 const http = require('http');
 const { Server } = require('socket.io');
-const path = require('path');
 const cors = require('cors');
 const mongoose = require('mongoose');
 
@@ -21,10 +21,12 @@ const io = new Server(server, {
 
 const PORT = 8080;
 
+const { DB_USER, DB_PASS} = process.env;
+
 // DB Connection
 const main = () => {
-  // return mongoose.connect('mongodb://localhost:27017/chatapp');
-  return mongoose.connect(`mongodb://${DB_USER}:${DB_PASS}@localhost:27017/chatapp`)
+  // return mongoose.connect(`mongodb://${DB_USER}:${DB_PASS}@localhost:27017/chatapp`)
+  return mongoose.connect(`mongodb://localhost:27017/chatapp`);
 };
 
 main()
@@ -59,8 +61,15 @@ main()
     res.send(fetchedUser)
   })
 
+// chats k liye !
+io.on('connection', (socket) => {
+  // console.log('User connected');
 
 
+  socket.on('disconnect', () => {
+    // console.log('User disconnected');
+  });
+});
 
 //chats k liye
 

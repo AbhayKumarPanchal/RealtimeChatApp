@@ -1,22 +1,31 @@
-const mongoose = require('mongoose');
-const User = require('../models/usermodel.js');
+const User = require('../models/usermodel');
 
 const register = async (req, res) => {
-  const { name, email, password } = req.body;
+  try {
+    const { name, email, password } = req.body;
 
-  const newUser = new User({ name, email, password });
-  await newUser.save();
-  res.send(newUser);
+    const newUser = new User({ name, email, password });
+    await newUser.save();
+
+    res.status(201).json(newUser);
+  } catch (err) {
+    res.status(500).json({ error: 'Registration failed', details: err.message });
+  }
 };
 
 const login = async (req, res) => {
-  const { name, password } = req.body;
+  try {
+    const { name, password } = req.body;
 
-  const fetchedUser = await User.findOne({ name, password });
-  if (!fetchedUser) {
-    return res.send('name or password is wrong!');
+    const fetchedUser = await User.findOne({ name, password });
+    if (!fetchedUser) {
+      return res.status(401).json({ message: 'Invalid name or password' });
+    }
+
+    res.json(fetchedUser);
+  } catch (err) {
+    res.status(500).json({ error: 'Login failed', details: err.message });
   }
-  res.send(fetchedUser);
 };
 
 module.exports = { register, login };
