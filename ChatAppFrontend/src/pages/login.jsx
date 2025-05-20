@@ -21,7 +21,7 @@ const Login = () =>{
             // console.log(res.data.name);
             setUser({name:"", password:""});
             console.log(`this is returned Data:- ${res.data.name}` )
-            navigate('/chat', {state: {userName: res.data.name} } )
+            navigate('/chat', {state: {userName: res.data.name, userId: res.data._id} } )
         }).catch((err)=>{
             console.log(`you got some error while Regstering! :- ${err}`);
         })
