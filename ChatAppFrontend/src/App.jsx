@@ -19,7 +19,6 @@ function App() {
       <Route path='/chat' element={<Chat/>} />
       <Route path='/signup' element={<Signup/>}/>
       <Route path='/login' element={<Login/>}/>
-      <Route path='/logout' element = {<Logout/>/>
     </Routes>
     </BrowserRouter>
   );
