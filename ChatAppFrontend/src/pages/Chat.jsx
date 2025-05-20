@@ -8,6 +8,7 @@ function Chat() {
 
   const location = useLocation();
   const userName = location.state?.userName || "Anonymous";
+  const userId = location.state?.userId || "none";
   // console.log(userName)
 
 
@@ -34,6 +35,17 @@ function Chat() {
     }
   };
 
+  const handleLogout = (e) =>{
+    e.preventDefault();
+    axios.delete(`http://localhost:8080/logout/{userId}`).then((res) => {
+      console.log(res.data);
+      return(`deleted data :- ${res.data});
+    }).catch((err)=>{
+      console.log(`got some error while deleting ${err});
+      return(err);
+    })
+  }
+
   return (
     <div >
       <h2>Real-time Chat</h2>
@@ -53,6 +65,7 @@ function Chat() {
         <button type = "submit">Send</button>
       </form>
     </div>
+      <button onClick = {handleLogout}>UserLogout</button>
   );
 }
 
