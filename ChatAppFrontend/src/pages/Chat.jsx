@@ -68,7 +68,7 @@ function Chat() {
         <input type="text" value={message} onChange={(e) => setMessage(e.target.value)} placeholder="Type message..." />
         <button type = "submit">Send</button>
       </form>
-      <button onClick = {handleLogout}>UserLogout</button>
+      <button onClick = {handleLogout}>DeleteAccount</button>
     </div>
   );
 }
